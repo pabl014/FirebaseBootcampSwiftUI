@@ -17,6 +17,8 @@
 		FE3B21972BE7B5DA00D82E07 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FE3B21962BE7B5DA00D82E07 /* FirebaseAuth */; };
 		FE3B219A2BE7B67700D82E07 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B21992BE7B67700D82E07 /* AuthenticationView.swift */; };
 		FE3B219C2BE7B7E300D82E07 /* SignInEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B219B2BE7B7E300D82E07 /* SignInEmailView.swift */; };
+		FE3B219E2BE7BA0B00D82E07 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B219D2BE7BA0B00D82E07 /* AuthenticationManager.swift */; };
+		FE3B21A02BE7BF9900D82E07 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B219F2BE7BF9900D82E07 /* RootView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		FE3B218E2BE7AD6F00D82E07 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FE3B21992BE7B67700D82E07 /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
 		FE3B219B2BE7B7E300D82E07 /* SignInEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEmailView.swift; sourceTree = "<group>"; };
+		FE3B219D2BE7BA0B00D82E07 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		FE3B219F2BE7BF9900D82E07 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +98,8 @@
 			children = (
 				FE3B21992BE7B67700D82E07 /* AuthenticationView.swift */,
 				FE3B219B2BE7B7E300D82E07 /* SignInEmailView.swift */,
+				FE3B219D2BE7BA0B00D82E07 /* AuthenticationManager.swift */,
+				FE3B219F2BE7BF9900D82E07 /* RootView.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -179,7 +185,9 @@
 			files = (
 				FE3B21832BE7AB1200D82E07 /* ContentView.swift in Sources */,
 				FE3B21812BE7AB1200D82E07 /* FirebaseBootcampSwiftUIApp.swift in Sources */,
+				FE3B21A02BE7BF9900D82E07 /* RootView.swift in Sources */,
 				FE3B219A2BE7B67700D82E07 /* AuthenticationView.swift in Sources */,
+				FE3B219E2BE7BA0B00D82E07 /* AuthenticationManager.swift in Sources */,
 				FE3B219C2BE7B7E300D82E07 /* SignInEmailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
