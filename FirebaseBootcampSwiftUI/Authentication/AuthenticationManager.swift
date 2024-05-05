@@ -26,6 +26,18 @@ final class AuthenticationManager {
     static let shared = AuthenticationManager()
     private init() { }
     
+    //  !!! no async here -> it's going to check for the authenticated user locally, it's not reaching out to the server
+    //  INCREDIBLY IMPORTANT, because if our app is loading for the first time and checking if a user is authenticated, we want to check that basically synchronously before the whole app loads
+    //  If it was async, we might have to add stuff like loading screend into our app or we might get the wrong value before the server returns
+    //  Once we authenticate a user it's being saved in the SDK locally and then we can just get the value from the local SDK
+    func getAuthenticatedUser() throws -> AuthDataResultModel {
+        guard let user = Auth.auth().currentUser else {
+            throw URLError(.badServerResponse)
+        }
+        
+        return AuthDataResultModel(user: user)
+    }
+    
     
     func createUser(email: String, password: String) async throws -> AuthDataResultModel {
         let authDataResult = try await Auth.auth().createUser(withEmail: email, password: password)
