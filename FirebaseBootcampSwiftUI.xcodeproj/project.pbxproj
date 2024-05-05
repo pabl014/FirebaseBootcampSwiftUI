@@ -19,6 +19,7 @@
 		FE3B219C2BE7B7E300D82E07 /* SignInEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B219B2BE7B7E300D82E07 /* SignInEmailView.swift */; };
 		FE3B219E2BE7BA0B00D82E07 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B219D2BE7BA0B00D82E07 /* AuthenticationManager.swift */; };
 		FE3B21A02BE7BF9900D82E07 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B219F2BE7BF9900D82E07 /* RootView.swift */; };
+		FE3B21A22BE7C42800D82E07 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B21A12BE7C42800D82E07 /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		FE3B219B2BE7B7E300D82E07 /* SignInEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEmailView.swift; sourceTree = "<group>"; };
 		FE3B219D2BE7BA0B00D82E07 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		FE3B219F2BE7BF9900D82E07 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		FE3B21A12BE7C42800D82E07 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 				FE3B219B2BE7B7E300D82E07 /* SignInEmailView.swift */,
 				FE3B219D2BE7BA0B00D82E07 /* AuthenticationManager.swift */,
 				FE3B219F2BE7BF9900D82E07 /* RootView.swift */,
+				FE3B21A12BE7C42800D82E07 /* SettingsView.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -183,6 +186,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE3B21A22BE7C42800D82E07 /* SettingsView.swift in Sources */,
 				FE3B21832BE7AB1200D82E07 /* ContentView.swift in Sources */,
 				FE3B21812BE7AB1200D82E07 /* FirebaseBootcampSwiftUIApp.swift in Sources */,
 				FE3B21A02BE7BF9900D82E07 /* RootView.swift in Sources */,
