@@ -9,6 +9,8 @@ import Foundation
 import GoogleSignIn
 import GoogleSignInSwift
 
+// !!! MORE DETAILED SignInGoogleHelper: https://github.com/SwiftfulThinking/SwiftfulFirebaseAuth/blob/main/Sources/SwiftfulFirebaseAuth/Helpers/SignInWithGoogle.swift
+
 
 struct GoogleSignInResultModel {
     let idToken: String
