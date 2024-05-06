@@ -38,7 +38,7 @@ final class AuthenticationManager {
         return AuthDataResultModel(user: user)
     }
     
-    
+    @discardableResult // we know there is a result ( a return value ), but we might not always use it so it's ok if we want to discard it
     func createUser(email: String, password: String) async throws -> AuthDataResultModel {
         let authDataResult = try await Auth.auth().createUser(withEmail: email, password: password)
         let result = AuthDataResultModel(user: authDataResult.user)
