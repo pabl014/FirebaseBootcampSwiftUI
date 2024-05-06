@@ -45,6 +45,14 @@ final class AuthenticationManager {
         return result
     }
     
+    
+    @discardableResult
+    func signInUser(email: String, password: String) async throws -> AuthDataResultModel {
+        let authDataResult = try await Auth.auth().signIn(withEmail: email, password: password)
+        return AuthDataResultModel(user: authDataResult.user)
+    }
+    
+    
     // synchronous (not async) -> it's going to sign out locally. We don;t need to ping the server. It happens immediately.
     func signOut() throws {
         try Auth.auth().signOut()
