@@ -20,6 +20,12 @@ struct AuthDataResultModel {
     }
 }
 
+
+enum AuthProviderOption: String {
+    case email = "password"
+    case google = "google.com"
+}
+
 final class AuthenticationManager {
     
     // making it singleton
@@ -36,6 +42,30 @@ final class AuthenticationManager {
         }
         
         return AuthDataResultModel(user: user)
+    }
+    
+    
+    func getProviders() throws -> [AuthProviderOption] {
+        guard let providerData = Auth.auth().currentUser?.providerData else {
+            throw URLError(.badServerResponse)
+        }
+        
+        var providers: [AuthProviderOption] = []
+        // This is an array, because every user has the ability to sign in with more than one provider.
+        // You can have your users sign in with email and they can also connect their gmail account, so that's why one user can have many providers
+        for provider in providerData {
+            //print(provider.providerID)
+            if let option = AuthProviderOption(rawValue: provider.providerID) {
+                providers.append(option)
+            } else {
+                // Failurtes in swift:
+                // fatalError() -> it's better not to use it, because it crashes users
+                //preconditionFailure()
+                assertionFailure("Provider option not found: \(provider.providerID)")
+            }
+        }
+        
+        return providers
     }
     
    
