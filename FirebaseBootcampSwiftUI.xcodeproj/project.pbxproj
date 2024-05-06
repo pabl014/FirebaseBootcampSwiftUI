@@ -23,6 +23,7 @@
 		FE3B21A72BE94CCC00D82E07 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FE3B21A62BE94CCC00D82E07 /* GoogleSignInSwift */; };
 		FE3B21AA2BE94ED200D82E07 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE3B21A92BE94ED200D82E07 /* GoogleService-Info.plist */; };
 		FE3B21AD2BE9550500D82E07 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B21AC2BE9550500D82E07 /* Utilities.swift */; };
+		FE3B21AF2BE96B3B00D82E07 /* SignInGoogleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B21AE2BE96B3B00D82E07 /* SignInGoogleHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		FE3B21A82BE94D5F00D82E07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		FE3B21A92BE94ED200D82E07 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FE3B21AC2BE9550500D82E07 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		FE3B21AE2BE96B3B00D82E07 /* SignInGoogleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInGoogleHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				FE3B219D2BE7BA0B00D82E07 /* AuthenticationManager.swift */,
 				FE3B219F2BE7BF9900D82E07 /* RootView.swift */,
 				FE3B21A12BE7C42800D82E07 /* SettingsView.swift */,
+				FE3B21AE2BE96B3B00D82E07 /* SignInGoogleHelper.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -210,6 +213,7 @@
 				FE3B21832BE7AB1200D82E07 /* ContentView.swift in Sources */,
 				FE3B21812BE7AB1200D82E07 /* FirebaseBootcampSwiftUIApp.swift in Sources */,
 				FE3B21A02BE7BF9900D82E07 /* RootView.swift in Sources */,
+				FE3B21AF2BE96B3B00D82E07 /* SignInGoogleHelper.swift in Sources */,
 				FE3B219A2BE7B67700D82E07 /* AuthenticationView.swift in Sources */,
 				FE3B219E2BE7BA0B00D82E07 /* AuthenticationManager.swift in Sources */,
 				FE3B21AD2BE9550500D82E07 /* Utilities.swift in Sources */,
