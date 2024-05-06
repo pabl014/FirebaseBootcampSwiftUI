@@ -57,6 +57,27 @@ final class AuthenticationManager {
        try await Auth.auth().sendPasswordReset(withEmail: email)
     }
     
+    // updating the authenticated users' password
+    func updatePassword(password: String) async throws {
+        guard let user = Auth.auth().currentUser else {
+            // error handling there
+            throw URLError(.badServerResponse)
+        }
+        
+        try await user.updatePassword(to: password)
+    }
+    
+
+    // updating the authenticated users' email
+    func updateEmail(email: String) async throws {
+        guard let user = Auth.auth().currentUser else {
+            // error handling there
+            throw URLError(.badServerResponse)
+        }
+        
+        // try await user.updateEmail(to: email) : DEPRECATED
+        try await user.sendEmailVerification(beforeUpdatingEmail: email)
+    }
     
     // synchronous (not async) -> it's going to sign out locally. We don;t need to ping the server. It happens immediately.
     func signOut() throws {
