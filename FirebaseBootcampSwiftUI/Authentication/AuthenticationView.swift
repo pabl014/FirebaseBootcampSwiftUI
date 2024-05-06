@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import GoogleSignIn
+import GoogleSignInSwift
 
 struct AuthenticationView: View {
     
@@ -24,6 +26,10 @@ struct AuthenticationView: View {
                     .frame(maxWidth: .infinity)
                     .background(.blue)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
+            }
+            
+            GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .dark, style: .wide, state: .normal)) {
+                
             }
             
             Spacer()
