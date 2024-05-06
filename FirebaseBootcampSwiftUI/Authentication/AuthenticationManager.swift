@@ -38,6 +38,18 @@ final class AuthenticationManager {
         return AuthDataResultModel(user: user)
     }
     
+   
+    // synchronous (not async) -> it's going to sign out locally. We don;t need to ping the server. It happens immediately.
+    func signOut() throws {
+        try Auth.auth().signOut()
+    }
+    
+}
+
+
+//MARK: - SIGN IN EMAIL & PASSWORD
+extension AuthenticationManager {
+
     @discardableResult // we know there is a result ( a return value ), but we might not always use it so it's ok if we want to discard it
     func createUser(email: String, password: String) async throws -> AuthDataResultModel {
         let authDataResult = try await Auth.auth().createUser(withEmail: email, password: password)
@@ -78,10 +90,21 @@ final class AuthenticationManager {
         // try await user.updateEmail(to: email) : DEPRECATED
         try await user.sendEmailVerification(beforeUpdatingEmail: email)
     }
+}
+
+
+//MARK: - SIGN IN SSO
+extension AuthenticationManager {
     
-    // synchronous (not async) -> it's going to sign out locally. We don;t need to ping the server. It happens immediately.
-    func signOut() throws {
-        try Auth.auth().signOut()
+    @discardableResult
+    func signInWithGoogle(tokens: GoogleSignInResultModel) async throws -> AuthDataResultModel {
+        let credential = GoogleAuthProvider.credential(withIDToken: tokens.idToken, accessToken: tokens.accessToken)
+        return try await signIn(credential: credential)
     }
     
+    
+    func signIn(credential: AuthCredential) async throws -> AuthDataResultModel {
+        let authDataResult = try await Auth.auth().signIn(with: credential)
+        return AuthDataResultModel(user: authDataResult.user)
+    }
 }
