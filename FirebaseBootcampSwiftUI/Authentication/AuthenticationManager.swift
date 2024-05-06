@@ -53,6 +53,11 @@ final class AuthenticationManager {
     }
     
     
+    func resetPassword(email: String) async throws {
+       try await Auth.auth().sendPasswordReset(withEmail: email)
+    }
+    
+    
     // synchronous (not async) -> it's going to sign out locally. We don;t need to ping the server. It happens immediately.
     func signOut() throws {
         try Auth.auth().signOut()

@@ -13,6 +13,15 @@ final class SettingsViewModel: ObservableObject {
     func signOut() throws {
         try AuthenticationManager.shared.signOut()
     }
+    
+    func resetPassword() async throws {
+        let authUser = try AuthenticationManager.shared.getAuthenticatedUser()
+        
+        guard let email = authUser.email else {
+            throw URLError(.fileDoesNotExist)
+        }
+        try await AuthenticationManager.shared.resetPassword(email: email)
+    }
 }
 
 
@@ -28,6 +37,18 @@ struct SettingsView: View {
                     do {
                         try viewModel.signOut()
                         showSignInView = true
+                    } catch {
+                        // error handling (displaying sth for the user)
+                        print(error)
+                    }
+                }
+            }
+            
+            Button("Reset password") {
+                Task {
+                    do {
+                        try await viewModel.resetPassword()
+                        print("PASSWORD RESET!")
                     } catch {
                         // error handling (displaying sth for the user)
                         print(error)
