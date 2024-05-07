@@ -11,12 +11,19 @@ import SwiftUI
 final class SettingsViewModel: ObservableObject {
     
     @Published var authProviders: [AuthProviderOption] = []
+    @Published var authUser: AuthDataResultModel? = nil
+    
     
     
     func loadAuthProviders() {
         if let providers = try? AuthenticationManager.shared.getProviders() {
             authProviders = providers
         }
+    }
+    
+    
+    func loadAuthUser() {
+        self.authUser = try? AuthenticationManager.shared.getAuthenticatedUser()
     }
     
     
@@ -48,6 +55,27 @@ final class SettingsViewModel: ObservableObject {
         let password = "Hello123!"
         try await AuthenticationManager.shared.updatePassword(password: password)
     }
+    
+    
+    func linkGoogleAccount() async throws { // similar to func signInGoogle() from AuthenticationViewModel from AuthenticationView
+        let helper = SignInGoogleHelper()
+        let tokens = try await helper.signIn()
+        self.authUser = try await AuthenticationManager.shared.linkGoogle(tokens: tokens)
+    }
+    
+    
+//    func linkAppleAccount() async throws {
+//        let helper = SignInAppleHelper()
+//        let tokens = try await helper.startSignInAppleFlow()
+//        self.authUser = try await AuthenticationManager.shared.linkApple(tokens: tokens)
+//    }
+    
+    
+    func linkEmailAccount() async throws { // similar to func signInGoogle() from AuthenticationViewModel from AuthenticationView
+        let email = "anotheremail@gmail.com"
+        let password = "Hello123!"
+        self.authUser = try await AuthenticationManager.shared.linkEmail(email: email, password: password)
+    }
 }
 
 
@@ -74,9 +102,19 @@ struct SettingsView: View {
                 emailSection
             }
             
+//            unwrapping Bool? value
+//            if let user = viewModel.authUser, user.isAnonymous {
+//
+//            }
+            // unwrapping Bool? value
+            if viewModel.authUser?.isAnonymous == true  {
+                anonymousSection
+            }
+            
         }
         .onAppear {
             viewModel.loadAuthProviders()
+            viewModel.loadAuthUser()
         }
         .navigationTitle("Settings")
     }
@@ -139,6 +177,49 @@ extension SettingsView {
             }
         } header: {
             Text("Email functions")
+        }
+    }
+    
+    
+    private var anonymousSection: some View {
+        Section {
+            Button("Link Google Account") {
+                Task {
+                    do {
+                        try await viewModel.linkGoogleAccount()
+                        print("GOOGLE LINKED!")
+                    } catch {
+                        // error handling (displaying sth for the user)
+                        print(error)
+                    }
+                }
+            }
+            
+            Button("Link Apple Account") {
+//                Task {
+//                    do {
+//                        try await viewModel.linkAppleAccount()
+//                        print("APPLE LINKED!")
+//                    } catch {
+//                        // error handling (displaying sth for the user)
+//                        print(error)
+//                    }
+//                }
+            }
+            
+            Button("Link Email Account") {
+                Task {
+                    do {
+                        try await viewModel.linkEmailAccount()
+                        print("EMAIL LINKED!")
+                    } catch {
+                        // error handling (displaying sth for the user)
+                        print(error)
+                    }
+                }
+            }
+        } header: {
+            Text("Create Account")
         }
     }
 }
