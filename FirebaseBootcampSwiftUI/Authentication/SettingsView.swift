@@ -32,6 +32,11 @@ final class SettingsViewModel: ObservableObject {
     }
     
     
+    func deleteAccount() async throws {
+        try await AuthenticationManager.shared.delete()
+    }
+    
+    
     func resetPassword() async throws {
         let authUser = try AuthenticationManager.shared.getAuthenticatedUser()
         
@@ -97,6 +102,24 @@ struct SettingsView: View {
                     }
                 }
             }
+            
+            // show the alert to the user that says:
+            // "We're going to delete your account. This is absolutely permanent, you can't restore yopur data, there is no going back. Are you sure?"
+            // Then if they confirm it, it's good to tell the user to resign into his account, so that he get reauthenticated, and then delete an account
+            Button(role: .destructive) {
+                Task {
+                    do {
+                        try await viewModel.deleteAccount()
+                        showSignInView = true
+                    } catch {
+                        // error handling (displaying sth for the user)
+                        print(error)
+                    }
+                }
+            } label: {
+                Text("Delete account")
+            }
+
             
             if viewModel.authProviders.contains(.email) {
                 emailSection
