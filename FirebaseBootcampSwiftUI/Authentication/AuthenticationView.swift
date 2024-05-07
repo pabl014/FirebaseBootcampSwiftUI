@@ -8,6 +8,7 @@
 import SwiftUI
 import GoogleSignIn         // Needed here for GoogleSignInButton
 import GoogleSignInSwift    // Needed here for GoogleSignInButton
+import AuthenticationServices
 
 @MainActor
 final class AuthenticationViewModel: ObservableObject {
@@ -52,6 +53,13 @@ struct AuthenticationView: View {
                     }
                 }
             }
+            
+            SignInWithAppleButton { request in
+                
+            } onCompletion: { result in
+                
+            }
+            .frame(height: 55)
             
             Spacer()
         }
