@@ -30,6 +30,7 @@
 		FEF707BE2BEBF6E8000DFFC4 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF707BD2BEBF6E8000DFFC4 /* AuthenticationViewModel.swift */; };
 		FEF707C12BEBF778000DFFC4 /* SignInEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF707C02BEBF778000DFFC4 /* SignInEmailViewModel.swift */; };
 		FEF707C42BEBF83E000DFFC4 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF707C32BEBF83E000DFFC4 /* ProfileView.swift */; };
+		FEF707C72BEC0838000DFFC4 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF707C62BEC0838000DFFC4 /* UserManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 		FEF707BD2BEBF6E8000DFFC4 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		FEF707C02BEBF778000DFFC4 /* SignInEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEmailViewModel.swift; sourceTree = "<group>"; };
 		FEF707C32BEBF83E000DFFC4 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		FEF707C62BEC0838000DFFC4 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 				FE3B21A92BE94ED200D82E07 /* GoogleService-Info.plist */,
 				FE3B21802BE7AB1200D82E07 /* FirebaseBootcampSwiftUIApp.swift */,
 				FE3B21822BE7AB1200D82E07 /* ContentView.swift */,
+				FEF707C52BEC0802000DFFC4 /* Firestore */,
 				FE3B21982BE7B64F00D82E07 /* Authentication */,
 				FEF707B82BEBF5BF000DFFC4 /* Screens */,
 				FE3B21AB2BE954D800D82E07 /* Utilities */,
@@ -183,6 +186,14 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		FEF707C52BEC0802000DFFC4 /* Firestore */ = {
+			isa = PBXGroup;
+			children = (
+				FEF707C62BEC0838000DFFC4 /* UserManager.swift */,
+			);
+			path = Firestore;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -269,6 +280,7 @@
 			files = (
 				FE3B21A22BE7C42800D82E07 /* SettingsView.swift in Sources */,
 				FEF707C42BEBF83E000DFFC4 /* ProfileView.swift in Sources */,
+				FEF707C72BEC0838000DFFC4 /* UserManager.swift in Sources */,
 				FE3B21832BE7AB1200D82E07 /* ContentView.swift in Sources */,
 				FE3B21812BE7AB1200D82E07 /* FirebaseBootcampSwiftUIApp.swift in Sources */,
 				FE3B21A02BE7BF9900D82E07 /* RootView.swift in Sources */,

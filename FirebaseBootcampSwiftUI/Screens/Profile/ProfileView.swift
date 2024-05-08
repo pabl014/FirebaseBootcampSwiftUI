@@ -9,11 +9,12 @@ import SwiftUI
 
 @MainActor
 final class ProfileViewModel: ObservableObject {
+    // private(set) -> mozliwy jest odczyt i zmiana wartosci wewnatrz obecnej klasy, ale poza nia mozliwy jest tylko odczyt
+    @Published private(set) var user: DBUser? = nil
     
-    @Published private(set) var user: AuthDataResultModel? = nil
-    
-    func loadCurrentUser() throws {
-        self.user = try AuthenticationManager.shared.getAuthenticatedUser()
+    func loadCurrentUser() async throws {
+        let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
+        self.user = try await UserManager.shared.getUser(userId: authDataResult.uid)
     }
 }
 
@@ -25,11 +26,15 @@ struct ProfileView: View {
     var body: some View {
         List {
             if let user = viewModel.user {
-                Text("UserId: \(user.uid)")
+                Text("UserId: \(user.userId)")
+                
+                if let isAnonymous = user.isAnonymous {
+                    Text("Is Anonymous: \(isAnonymous.description.capitalized)")
+                }
             }
         }
-        .onAppear {
-            try? viewModel.loadCurrentUser()
+        .task {
+            try? await viewModel.loadCurrentUser()
         }
         .navigationTitle("Profile")
         .toolbar {
