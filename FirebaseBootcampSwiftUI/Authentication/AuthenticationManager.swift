@@ -11,13 +11,13 @@ import FirebaseAuth
 struct AuthDataResultModel {
     let uid: String
     let email: String?
-    let photourl: String?
+    let photoUrl: String?
     let isAnonymous: Bool
     
     init(user: User) { // User -> comes from FirebaseSDK
         self.uid = user.uid
         self.email = user.email
-        self.photourl = user.photoURL?.absoluteString
+        self.photoUrl = user.photoURL?.absoluteString
         self.isAnonymous = user.isAnonymous
     }
 }
