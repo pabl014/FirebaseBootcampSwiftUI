@@ -17,6 +17,7 @@ struct DBUser: Codable {
     let photoUrl: String?
     let dateCreated: Date?
     let isPremium: Bool?
+    let preferences: [String]?
     
     init(auth: AuthDataResultModel) {
         self.userId = auth.uid
@@ -24,7 +25,8 @@ struct DBUser: Codable {
         self.email = auth.email
         self.photoUrl = auth.photoUrl
         self.dateCreated = Date()
-        self.isPremium = false 
+        self.isPremium = false
+        self.preferences = nil
     }
     
     init(
@@ -33,7 +35,8 @@ struct DBUser: Codable {
         email: String? = nil,
         photoUrl: String? = nil,
         dateCreated: Date? = nil,
-        isPremium: Bool? = nil
+        isPremium: Bool? = nil,
+        preferences: [String]? = nil
     ) {
         self.userId = userId
         self.isAnonymous = isAnonymous
@@ -41,6 +44,7 @@ struct DBUser: Codable {
         self.photoUrl = photoUrl
         self.dateCreated = dateCreated
         self.isPremium = isPremium
+        self.preferences = preferences
     }
     
     
@@ -72,6 +76,7 @@ struct DBUser: Codable {
         case photoUrl = "photo_url"
         case dateCreated = "date_created"
         case isPremium = "user_isPremium"
+        case preferences = "preferences"
     }
     
     init(from decoder: any Decoder) throws {
@@ -82,6 +87,7 @@ struct DBUser: Codable {
         self.photoUrl = try container.decodeIfPresent(String.self, forKey: .photoUrl)
         self.dateCreated = try container.decodeIfPresent(Date.self, forKey: .dateCreated)
         self.isPremium = try container.decodeIfPresent(Bool.self, forKey: .isPremium)
+        self.preferences = try container.decodeIfPresent([String].self, forKey: .preferences)
     }
     
     
@@ -93,6 +99,7 @@ struct DBUser: Codable {
         try container.encodeIfPresent(self.photoUrl, forKey: .photoUrl)
         try container.encodeIfPresent(self.dateCreated, forKey: .dateCreated)
         try container.encodeIfPresent(self.isPremium, forKey: .isPremium)
+        try container.encodeIfPresent(self.preferences, forKey: .preferences)
     }
 }
 
@@ -172,6 +179,22 @@ final class UserManager {
     func updateUserPremiumStatus(userId: String, isPremium: Bool) async throws {
         let data: [String:Any] = [
             DBUser.CodingKeys.isPremium.rawValue : isPremium
+        ]
+        try await userDocument(userId: userId).updateData(data)
+    }
+    
+    
+    func addUserPreference(userId: String, preference: String) async throws {
+        let data: [String:Any] = [
+            DBUser.CodingKeys.preferences.rawValue : FieldValue.arrayUnion([preference]) // FieldValue = the value at the database right now, arrayUnion([preference]) = join this array with the array at this field
+        ]
+        try await userDocument(userId: userId).updateData(data)
+    }
+    
+    
+    func removeUserPreference(userId: String, preference: String) async throws {
+        let data: [String:Any] = [
+            DBUser.CodingKeys.preferences.rawValue : FieldValue.arrayRemove([preference])
         ]
         try await userDocument(userId: userId).updateData(data)
     }
