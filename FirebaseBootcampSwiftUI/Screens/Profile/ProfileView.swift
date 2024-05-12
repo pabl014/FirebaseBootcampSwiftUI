@@ -48,6 +48,26 @@ final class ProfileViewModel: ObservableObject {
             self.user = try await UserManager.shared.getUser(userId: user.userId)
         }
     }
+    
+    
+    func addFavoriteMovie() {
+        guard let user else { return }
+        let movie = Movie(id: "1", title: "Taxi Driver", isPopular: true)
+        Task {
+            try await UserManager.shared.addFavoriteMovie(userId: user.userId, movie: movie)
+            self.user = try await UserManager.shared.getUser(userId: user.userId)
+        }
+    }
+    
+    
+    func removeFavoriteMovie() {
+        guard let user else { return }
+        
+        Task {
+            try await UserManager.shared.removeFavoriteMovie(userId: user.userId)
+            self.user = try await UserManager.shared.getUser(userId: user.userId)
+        }
+    }
 }
 
 struct ProfileView: View {
@@ -94,6 +114,16 @@ struct ProfileView: View {
                     
                     Text("User preferences: \((user.preferences ?? []).joined(separator: ", "))")
                         .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                
+                Button {
+                    if user.favoriteMovie == nil {
+                        viewModel.addFavoriteMovie()
+                    } else {
+                        viewModel.removeFavoriteMovie()
+                    }
+                } label: {
+                    Text("Favorite Movie: \(user.favoriteMovie?.title ?? "" )")
                 }
             }
         }
