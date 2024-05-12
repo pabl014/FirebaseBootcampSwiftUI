@@ -10,30 +10,10 @@ import SwiftUI
 @MainActor
 final class ProductsViewModel: ObservableObject {
     
+    @Published private(set) var products: [Product] = []
     
-    func downloadProductsAndUploadToFirebase() {
-        // https://dummyjson.com/products
-        guard let url = URL(string: "https://dummyjson.com/products") else { return }
-        
-        Task {
-            do {
-                let (data, response) = try await URLSession.shared.data(from: url)
-                guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                    throw URLError(.badServerResponse)
-                }
-                let products = try JSONDecoder().decode(ProductArray.self, from: data)
-                let productsArray = products.products
-                
-                for product in productsArray {
-                    try? await ProductsManager.shared.uploadProduct(product: product)
-                }
-                
-                print("SUCCESS")
-                print(products.products.count)
-            } catch {
-                print(error)
-            }
-        }
+    func getAllProducts() async throws {
+        self.products = try await ProductsManager.shared.getAllProducts()
     }
 }
 
@@ -42,12 +22,14 @@ struct ProductsView: View {
     @StateObject private var viewModel = ProductsViewModel()
     
     var body: some View {
-        ZStack {
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List {
+            ForEach(viewModel.products) { product in
+                Text(product.title ?? "n/a")
+            }
         }
         .navigationTitle("Products")
-        .onAppear {
-            viewModel.downloadProductsAndUploadToFirebase()
+        .task {
+            try? await viewModel.getAllProducts()
         }
     }
 }
