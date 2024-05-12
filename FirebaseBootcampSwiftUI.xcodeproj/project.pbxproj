@@ -31,6 +31,9 @@
 		FEF707C12BEBF778000DFFC4 /* SignInEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF707C02BEBF778000DFFC4 /* SignInEmailViewModel.swift */; };
 		FEF707C42BEBF83E000DFFC4 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF707C32BEBF83E000DFFC4 /* ProfileView.swift */; };
 		FEF707C72BEC0838000DFFC4 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF707C62BEC0838000DFFC4 /* UserManager.swift */; };
+		FEF707CA2BF11B49000DFFC4 /* ProductsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF707C92BF11B49000DFFC4 /* ProductsView.swift */; };
+		FEF707CC2BF11E9B000DFFC4 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF707CB2BF11E9B000DFFC4 /* Product.swift */; };
+		FEF707CE2BF121C3000DFFC4 /* ProductsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF707CD2BF121C3000DFFC4 /* ProductsManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +56,9 @@
 		FEF707C02BEBF778000DFFC4 /* SignInEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEmailViewModel.swift; sourceTree = "<group>"; };
 		FEF707C32BEBF83E000DFFC4 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		FEF707C62BEC0838000DFFC4 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		FEF707C92BF11B49000DFFC4 /* ProductsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsView.swift; sourceTree = "<group>"; };
+		FEF707CB2BF11E9B000DFFC4 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		FEF707CD2BF121C3000DFFC4 /* ProductsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				FE3B21AC2BE9550500D82E07 /* Utilities.swift */,
+				FEF707CB2BF11E9B000DFFC4 /* Product.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -143,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				FE3B219F2BE7BF9900D82E07 /* RootView.swift */,
+				FEF707C82BF11B2D000DFFC4 /* Products */,
 				FEF707BC2BEBF6C5000DFFC4 /* Authentication */,
 				FEF707C22BEBF808000DFFC4 /* Profile */,
 				FEF707B92BEBF686000DFFC4 /* Settings */,
@@ -190,8 +198,17 @@
 			isa = PBXGroup;
 			children = (
 				FEF707C62BEC0838000DFFC4 /* UserManager.swift */,
+				FEF707CD2BF121C3000DFFC4 /* ProductsManager.swift */,
 			);
 			path = Firestore;
+			sourceTree = "<group>";
+		};
+		FEF707C82BF11B2D000DFFC4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FEF707C92BF11B49000DFFC4 /* ProductsView.swift */,
+			);
+			path = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -278,6 +295,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FEF707CE2BF121C3000DFFC4 /* ProductsManager.swift in Sources */,
 				FE3B21A22BE7C42800D82E07 /* SettingsView.swift in Sources */,
 				FEF707C42BEBF83E000DFFC4 /* ProfileView.swift in Sources */,
 				FEF707C72BEC0838000DFFC4 /* UserManager.swift in Sources */,
@@ -287,11 +305,13 @@
 				FEF707BE2BEBF6E8000DFFC4 /* AuthenticationViewModel.swift in Sources */,
 				FEF707C12BEBF778000DFFC4 /* SignInEmailViewModel.swift in Sources */,
 				FE3B21AF2BE96B3B00D82E07 /* SignInGoogleHelper.swift in Sources */,
+				FEF707CC2BF11E9B000DFFC4 /* Product.swift in Sources */,
 				FEF707BB2BEBF69B000DFFC4 /* SettingsViewModel.swift in Sources */,
 				FE3B219A2BE7B67700D82E07 /* AuthenticationView.swift in Sources */,
 				FE3B219E2BE7BA0B00D82E07 /* AuthenticationManager.swift in Sources */,
 				FE3B21AD2BE9550500D82E07 /* Utilities.swift in Sources */,
 				FE3B219C2BE7B7E300D82E07 /* SignInEmailView.swift in Sources */,
+				FEF707CA2BF11B49000DFFC4 /* ProductsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
