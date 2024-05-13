@@ -34,6 +34,7 @@
 		FEF707CA2BF11B49000DFFC4 /* ProductsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF707C92BF11B49000DFFC4 /* ProductsView.swift */; };
 		FEF707CC2BF11E9B000DFFC4 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF707CB2BF11E9B000DFFC4 /* Product.swift */; };
 		FEF707CE2BF121C3000DFFC4 /* ProductsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF707CD2BF121C3000DFFC4 /* ProductsManager.swift */; };
+		FEF707D12BF2827A000DFFC4 /* ProductCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF707D02BF2827A000DFFC4 /* ProductCellView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,7 @@
 		FEF707C92BF11B49000DFFC4 /* ProductsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsView.swift; sourceTree = "<group>"; };
 		FEF707CB2BF11E9B000DFFC4 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		FEF707CD2BF121C3000DFFC4 /* ProductsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsManager.swift; sourceTree = "<group>"; };
+		FEF707D02BF2827A000DFFC4 /* ProductCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCellView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,8 +209,17 @@
 			isa = PBXGroup;
 			children = (
 				FEF707C92BF11B49000DFFC4 /* ProductsView.swift */,
+				FEF707CF2BF28265000DFFC4 /* Subviews */,
 			);
 			path = Products;
+			sourceTree = "<group>";
+		};
+		FEF707CF2BF28265000DFFC4 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				FEF707D02BF2827A000DFFC4 /* ProductCellView.swift */,
+			);
+			path = Subviews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -305,6 +316,7 @@
 				FEF707BE2BEBF6E8000DFFC4 /* AuthenticationViewModel.swift in Sources */,
 				FEF707C12BEBF778000DFFC4 /* SignInEmailViewModel.swift in Sources */,
 				FE3B21AF2BE96B3B00D82E07 /* SignInGoogleHelper.swift in Sources */,
+				FEF707D12BF2827A000DFFC4 /* ProductCellView.swift in Sources */,
 				FEF707CC2BF11E9B000DFFC4 /* Product.swift in Sources */,
 				FEF707BB2BEBF69B000DFFC4 /* SettingsViewModel.swift in Sources */,
 				FE3B219A2BE7B67700D82E07 /* AuthenticationView.swift in Sources */,

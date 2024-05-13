@@ -26,10 +26,11 @@ final class ProductsManager {
     
     
     func getAllProducts() async throws -> [Product] {
-        let snapshot = try await productsCollection.getDocuments()
+        let snapshot = try await productsCollection.getDocuments() // there is no func like getDocuments(as: ), try await userDocument(userId: userId).getDocument(as: DBUser.self), so we need to make a snapshot
         
         var products: [Product] = []
         
+        // looping through the documents and convert them to the product individually
         for document in snapshot.documents {
             let product = try document.data(as: Product.self)
             products.append(product)

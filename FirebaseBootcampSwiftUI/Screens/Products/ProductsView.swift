@@ -24,7 +24,7 @@ struct ProductsView: View {
     var body: some View {
         List {
             ForEach(viewModel.products) { product in
-                Text(product.title ?? "n/a")
+                ProductCellView(product: product)
             }
         }
         .navigationTitle("Products")
