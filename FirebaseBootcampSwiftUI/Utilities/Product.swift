@@ -23,6 +23,21 @@ struct Product: Identifiable, Codable {
     let brand, category: String?
     let thumbnail: String?
     let images: [String]?
+    
+    // to make the code safer and cleaner by referencing to the codingKeys from the product in Firestore Queries
+    enum CodingKeys: String, CodingKey { // String to get rawValue
+        case id
+        case title
+        case description
+        case price
+        case discountPercentage
+        case rating
+        case stock
+        case brand
+        case category
+        case thumbnail
+        case images
+    }
 }
 
 //MARK: - Download products and upload to firebase (from ProductsViewModel, then in view called with .onAppear { })
