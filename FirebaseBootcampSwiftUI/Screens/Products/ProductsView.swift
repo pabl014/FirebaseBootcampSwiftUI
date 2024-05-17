@@ -14,31 +14,40 @@ final class ProductsViewModel: ObservableObject {
     @Published var selectedFilter: FilterOption? = nil
     @Published var selectedCategory: CategoryOption? = nil
     
-    func getAllProducts() async throws {
-        self.products = try await ProductsManager.shared.getAllProducts()
-    }
-    
+//    func getAllProducts() async throws {
+//        self.products = try await ProductsManager.shared.getAllProducts()
+//    }
     
     enum FilterOption: String, CaseIterable {
         case noFilter = "No Filter"
         case priceHigh = "Highest Price"
         case priceLow = "Lowest Price"
+        
+        var priceDescending: Bool? {
+            switch self {
+            case .noFilter: return nil
+            case .priceHigh: return true
+            case .priceLow: return false
+            }
+        }
     }
     
     func filterSelected(option: FilterOption) async throws {
-        switch option {
-        case .noFilter:
-            self.products = try await ProductsManager.shared.getAllProducts()
-        case .priceHigh:
-            // 1. query on the db and get the items
-            // 2. update the ui
-            // 3. set the filter to price high
-            self.products = try await ProductsManager.shared.getAllProductsSortedByPrice(descending: true)
-        case.priceLow:
-            self.products = try await ProductsManager.shared.getAllProductsSortedByPrice(descending: false)
-        }
-        
         self.selectedFilter = option
+        self.getProducts()
+        
+//        switch option {
+//        case .noFilter:
+//            self.products = try await ProductsManager.shared.getAllProducts()
+//        case .priceHigh:
+//            // 1. query on the db and get the items
+//            // 2. update the ui
+//            // 3. set the filter to price high
+//            self.products = try await ProductsManager.shared.getAllProductsSortedByPrice(descending: true)
+//        case.priceLow:
+//            self.products = try await ProductsManager.shared.getAllProductsSortedByPrice(descending: false)
+//        }
+        
     }
     
     
@@ -48,17 +57,33 @@ final class ProductsViewModel: ObservableObject {
         case smartphones
         case laptops
         case fragrances
+        
+        var categoryKey: String? {
+            if self == .noCategory {
+                return nil
+            } else {
+                return self.rawValue
+            }
+        }
     }
     
     func categorySelected(option: CategoryOption) async throws {
-        switch option {
-        case .noCategory:
-            self.products = try await ProductsManager.shared.getAllProducts()
-        case .smartphones, .laptops, .fragrances:
-            self.products = try await ProductsManager.shared.getAllProductsForCategory(category: option.rawValue)
-        }
-        
         self.selectedCategory = option
+        self.getProducts()
+//        switch option {
+//        case .noCategory:
+//            self.products = try await ProductsManager.shared.getAllProducts()
+//        case .smartphones, .laptops, .fragrances:
+//            self.products = try await ProductsManager.shared.getAllProductsForCategory(category: option.rawValue)
+//        }
+        
+    }
+    
+    
+    func getProducts() {
+        Task {
+            self.products = try await ProductsManager.shared.getAllProducts(priceDescending: selectedFilter?.priceDescending, forCategory: selectedCategory?.categoryKey)
+        }
     }
     
 }
@@ -101,8 +126,8 @@ struct ProductsView: View {
                 }
             }
         })
-        .task {
-            try? await viewModel.getAllProducts()
+        .onAppear {
+            viewModel.getProducts()
         }
     }
 }
