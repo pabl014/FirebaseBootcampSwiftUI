@@ -45,13 +45,16 @@ final class ProductsManager {
 //    }
     
     private func getAllProducts() async throws -> [Product] {
-        try await productsCollection.getDocuments(as: Product.self)
+        try await productsCollection
+//            .limit(to: 5)
+            .getDocuments(as: Product.self)
     }
     
     
     private func getAllProductsSortedByPrice(descending: Bool) async throws -> [Product] {
         try await productsCollection
             .order(by: Product.CodingKeys.price.rawValue, descending: descending)
+//            .limit(toLast: 3)
             .getDocuments(as: Product.self)
     }
     
@@ -81,17 +84,47 @@ final class ProductsManager {
         }
         return try await getAllProducts()
     }
+    
+    
+    func getProductsByRating(count: Int, lastRating: Double?) async throws -> [Product] {
+        try await productsCollection
+            .order(by: Product.CodingKeys.rating.rawValue, descending: true)
+            .limit(to: count)
+//            .start(at: [4.5]) // anything above 4.5 rating is excluded
+            .start(after: [lastRating ?? 9999999])
+            .getDocuments(as: Product.self)
+    }
+    
+    
+    func getProductsByRating(count: Int, lastDocument: DocumentSnapshot?) async throws -> (products: [Product], lastDocument: DocumentSnapshot?) {
+        if let lastDocument {
+            return try await productsCollection
+                .order(by: Product.CodingKeys.rating.rawValue, descending: true)
+                .limit(to: count)
+                .start(afterDocument: lastDocument )
+                .getDocumentsWithSnapshot(as: Product.self)
+        } else {
+            return try await productsCollection
+                .order(by: Product.CodingKeys.rating.rawValue, descending: true)
+                .limit(to: count)
+                .getDocumentsWithSnapshot(as: Product.self)
+        }
+    }
 }
 
 extension Query {
     
+//    func getDocuments<T>(as type: T.Type) async throws -> [T] where T : Decodable {
+//        
+//        let snapshot = try await self.getDocuments()
+//        
+//        return try snapshot.documents.map({ document in
+//            try document.data(as: T.self)
+//        })
+//    }
+    
     func getDocuments<T>(as type: T.Type) async throws -> [T] where T : Decodable {
-        
-        let snapshot = try await self.getDocuments()
-        
-        return try snapshot.documents.map({ document in
-            try document.data(as: T.self)
-        })
+        try await getDocumentsWithSnapshot(as: type).products
     }
     
     
@@ -108,4 +141,16 @@ extension Query {
 //        
 //        return products
 //    }
+    
+    // will get all of the documents, but will also give back the last document snapshot
+    func getDocumentsWithSnapshot<T>(as type: T.Type) async throws -> (products: [T], lastDocument: DocumentSnapshot?) where T : Decodable {
+        
+        let snapshot = try await self.getDocuments()
+        
+        let products = try snapshot.documents.map({ document in
+            try document.data(as: T.self)
+        })
+        
+        return (products, snapshot.documents.last)
+    }
 }

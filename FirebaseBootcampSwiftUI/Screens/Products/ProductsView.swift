@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
 @MainActor
 final class ProductsViewModel: ObservableObject {
@@ -13,6 +14,7 @@ final class ProductsViewModel: ObservableObject {
     @Published private(set) var products: [Product] = []
     @Published var selectedSort: SortOption? = nil
     @Published var selectedCategory: CategoryOption? = nil
+    private var lastDocument: DocumentSnapshot? = nil // in a larger app we might want to create some sort of local type to hold a DocumentSnapshot, so that if you're using this on multiple screens, you don't have to import Firebase every time. You can make a struct that is like "MySnapshotContainer" or "MyQueryHolder" and then put the document snapshot inside so that when you initialize the struct you import Firestore and you have reference
     
 //    func getAllProducts() async throws {
 //        self.products = try await ProductsManager.shared.getAllProducts()
@@ -86,6 +88,18 @@ final class ProductsViewModel: ObservableObject {
         }
     }
     
+    
+//    func getProductsByRating() {
+//        Task {
+// //            let newProducts = try await ProductsManager.shared.getProductsByRating(count: 3, lastRating: self.products.last?.rating)
+// //            self.products.append(contentsOf: newProducts)
+//            let (newProducts, lastDocument) = try await ProductsManager.shared.getProductsByRating(count: 3, lastDocument: lastDocument)
+//            
+//            self.products.append(contentsOf: newProducts)
+//            self.lastDocument = lastDocument
+//        }
+//    }
+    
 }
 
 
@@ -96,6 +110,10 @@ struct ProductsView: View {
     
     var body: some View {
         List {
+//            Button("FETCH MORE OBJECTS") {
+//                viewModel.getProductsByRating()
+//            }
+            
             ForEach(viewModel.products) { product in
                 ProductCellView(product: product)
             }
