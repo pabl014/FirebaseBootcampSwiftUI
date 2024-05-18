@@ -14,7 +14,15 @@ final class ProductsViewModel: ObservableObject {
     @Published private(set) var products: [Product] = []
     @Published var selectedSort: SortOption? = nil
     @Published var selectedCategory: CategoryOption? = nil
-    private var lastDocument: DocumentSnapshot? = nil // in a larger app we might want to create some sort of local type to hold a DocumentSnapshot, so that if you're using this on multiple screens, you don't have to import Firebase every time. You can make a struct that is like "MySnapshotContainer" or "MyQueryHolder" and then put the document snapshot inside so that when you initialize the struct you import Firestore and you have reference
+    private var lastDocument: DocumentSnapshot? = nil // in a larger app we might want to create some sort of local type to hold a DocumentSnapshot, so that if you're using this on multiple screens, you don't have to import Firebase every time. You can make a struct that is like "MySnapshotContainer" or "MyQueryHolder" and then put the document snapshot inside so that when you initialize the struct you import Firestore and you have reference:
+//    import FirebaseFirestore
+//    struct LastDocumentSnapshot {
+//        var lastDocument: DocumentSnapshot?
+//
+//        init(_ lastDocument: DocumentSnapshot) {
+//            self.lastDocument = lastDocument
+//        }
+//    }
     
 //    func getAllProducts() async throws {
 //        self.products = try await ProductsManager.shared.getAllProducts()
@@ -36,6 +44,8 @@ final class ProductsViewModel: ObservableObject {
     
     func sortSelected(option: SortOption) async throws {
         self.selectedSort = option
+        self.products = []
+        self.lastDocument = nil
         self.getProducts()
         
 //        switch option {
@@ -71,6 +81,8 @@ final class ProductsViewModel: ObservableObject {
     
     func categorySelected(option: CategoryOption) async throws {
         self.selectedCategory = option
+        self.products = []
+        self.lastDocument = nil
         self.getProducts()
 //        switch option {
 //        case .noCategory:
@@ -84,10 +96,26 @@ final class ProductsViewModel: ObservableObject {
     
     func getProducts() {
         Task {
-            self.products = try await ProductsManager.shared.getAllProducts(priceDescending: selectedSort?.priceDescending, forCategory: selectedCategory?.categoryKey)
+            let (newProducts, lastDocument) = try await ProductsManager.shared.getAllProducts(
+                priceDescending: selectedSort?.priceDescending,
+                forCategory: selectedCategory?.categoryKey,
+                count: 10,
+                lastDocument: lastDocument
+            )
+            
+            self.products.append(contentsOf: newProducts)
+            if let lastDocument {
+                self.lastDocument = lastDocument
+            }
         }
     }
     
+//    func getProductsCount() {
+//        Task {
+//            let count = try await ProductsManager.shared.getAllProductsCount()
+//            print("ALL PRODUCTS COUNT: \(count)")
+//        }
+//    }
     
 //    func getProductsByRating() {
 //        Task {
@@ -116,6 +144,13 @@ struct ProductsView: View {
             
             ForEach(viewModel.products) { product in
                 ProductCellView(product: product)
+                
+                if product == viewModel.products.last {
+                    ProgressView()
+                        .onAppear {
+                            viewModel.getProducts()
+                        }
+                }
             }
         }
         .navigationTitle("Products")
@@ -145,6 +180,7 @@ struct ProductsView: View {
             }
         })
         .onAppear {
+//            viewModel.getProductsCount()
             viewModel.getProducts()
         }
     }

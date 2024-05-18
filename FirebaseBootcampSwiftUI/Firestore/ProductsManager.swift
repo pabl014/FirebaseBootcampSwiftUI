@@ -44,71 +44,119 @@ final class ProductsManager {
 //        return products
 //    }
     
-    private func getAllProducts() async throws -> [Product] {
-        try await productsCollection
-//            .limit(to: 5)
-            .getDocuments(as: Product.self)
+//    private func getAllProducts() async throws -> [Product] {
+//        try await productsCollection
+////            .limit(to: 5)
+//            .getDocuments(as: Product.self)
+//    }
+//    
+//    
+//    private func getAllProductsSortedByPrice(descending: Bool) async throws -> [Product] {
+//        try await productsCollection
+//            .order(by: Product.CodingKeys.price.rawValue, descending: descending)
+////            .limit(toLast: 3)
+//            .getDocuments(as: Product.self)
+//    }
+//    
+//    
+//    private func getAllProductsForCategory(category: String) async throws -> [Product] {
+//        try await productsCollection
+//            .whereField(Product.CodingKeys.category.rawValue, isEqualTo: category)
+//            .getDocuments(as: Product.self)
+//    }
+//    
+//    
+//    private func getAllProductsByPriceAndCategory(descending: Bool, category: String) async throws -> [Product] {
+//        try await productsCollection
+//            .whereField(Product.CodingKeys.category.rawValue, isEqualTo: category)
+//            .order(by: Product.CodingKeys.price.rawValue, descending: descending)
+//            .getDocuments(as: Product.self)
+//    }
+    
+    
+    private func getAllProductsQuery() -> Query {
+        productsCollection
     }
     
     
-    private func getAllProductsSortedByPrice(descending: Bool) async throws -> [Product] {
-        try await productsCollection
+    private func getAllProductsSortedByPriceQuery(descending: Bool) -> Query {
+        productsCollection
             .order(by: Product.CodingKeys.price.rawValue, descending: descending)
-//            .limit(toLast: 3)
-            .getDocuments(as: Product.self)
     }
     
     
-    private func getAllProductsForCategory(category: String) async throws -> [Product] {
-        try await productsCollection
+    private func getAllProductsForCategoryQuery(category: String) -> Query {
+        productsCollection
             .whereField(Product.CodingKeys.category.rawValue, isEqualTo: category)
-            .getDocuments(as: Product.self)
     }
     
     
-    private func getAllProductsByPriceAndCategory(descending: Bool, category: String) async throws -> [Product] {
-        try await productsCollection
+    private func getAllProductsByPriceAndCategoryQuery(descending: Bool, category: String) -> Query {
+        productsCollection
             .whereField(Product.CodingKeys.category.rawValue, isEqualTo: category)
             .order(by: Product.CodingKeys.price.rawValue, descending: descending)
-            .getDocuments(as: Product.self)
     }
     
     // this func will be called from app
-    func getAllProducts(priceDescending descending: Bool?, forCategory category: String?) async throws -> [Product] {
+    func getAllProducts(priceDescending descending: Bool?, forCategory category: String?, count: Int, lastDocument: DocumentSnapshot?) async throws -> (products: [Product], lastDocument: DocumentSnapshot?) {
+        
+        var query: Query = getAllProductsQuery()
+        
         if let descending, let category {
-            return try await getAllProductsByPriceAndCategory(descending: descending, category: category)
+            query = getAllProductsByPriceAndCategoryQuery(descending: descending, category: category)
         } else if let descending {
-            return try await getAllProductsSortedByPrice(descending: descending)
+            query = getAllProductsSortedByPriceQuery(descending: descending)
         } else if let category {
-            return try await getAllProductsForCategory(category: category)
+            query = getAllProductsForCategoryQuery(category: category)
         }
-        return try await getAllProducts()
-    }
-    
-    
-    func getProductsByRating(count: Int, lastRating: Double?) async throws -> [Product] {
-        try await productsCollection
-            .order(by: Product.CodingKeys.rating.rawValue, descending: true)
+        
+        return try await query
             .limit(to: count)
-//            .start(at: [4.5]) // anything above 4.5 rating is excluded
-            .start(after: [lastRating ?? 9999999])
-            .getDocuments(as: Product.self)
+            .startOptionally(afterDocument: lastDocument)
+            .getDocumentsWithSnapshot(as: Product.self)
+        
+//        if let lastDocument {
+//            return try await query
+//                .limit(to: count)
+//                .start(afterDocument: lastDocument)
+//                .getDocumentsWithSnapshot(as: Product.self)
+//        } else {
+//            return try await query
+//                .limit(to: count)
+//                .getDocumentsWithSnapshot(as: Product.self)
+//        }
+        
     }
     
     
-    func getProductsByRating(count: Int, lastDocument: DocumentSnapshot?) async throws -> (products: [Product], lastDocument: DocumentSnapshot?) {
-        if let lastDocument {
-            return try await productsCollection
-                .order(by: Product.CodingKeys.rating.rawValue, descending: true)
-                .limit(to: count)
-                .start(afterDocument: lastDocument )
-                .getDocumentsWithSnapshot(as: Product.self)
-        } else {
-            return try await productsCollection
-                .order(by: Product.CodingKeys.rating.rawValue, descending: true)
-                .limit(to: count)
-                .getDocumentsWithSnapshot(as: Product.self)
-        }
+//    func getProductsByRating(count: Int, lastRating: Double?) async throws -> [Product] {
+//        try await productsCollection
+//            .order(by: Product.CodingKeys.rating.rawValue, descending: true)
+//            .limit(to: count)
+////            .start(at: [4.5]) // anything above 4.5 rating is excluded
+//            .start(after: [lastRating ?? 9999999])
+//            .getDocuments(as: Product.self)
+//    }
+    
+    
+//    func getProductsByRating(count: Int, lastDocument: DocumentSnapshot?) async throws -> (products: [Product], lastDocument: DocumentSnapshot?) {
+//        if let lastDocument {
+//            return try await productsCollection
+//                .order(by: Product.CodingKeys.rating.rawValue, descending: true)
+//                .limit(to: count)
+//                .start(afterDocument: lastDocument )
+//                .getDocumentsWithSnapshot(as: Product.self)
+//        } else {
+//            return try await productsCollection
+//                .order(by: Product.CodingKeys.rating.rawValue, descending: true)
+//                .limit(to: count)
+//                .getDocumentsWithSnapshot(as: Product.self)
+//        }
+//    }
+    
+    
+    func getAllProductsCount() async throws -> Int {
+        try await productsCollection.aggregateCount()
     }
 }
 
@@ -152,5 +200,20 @@ extension Query {
         })
         
         return (products, snapshot.documents.last)
+    }
+    
+//        .start(afterDocument: lastDocument)
+    func startOptionally(afterDocument lastDocument: DocumentSnapshot?) -> Query {
+        guard let lastDocument else {
+            return self
+        }
+        
+        return self.start(afterDocument: lastDocument)
+    }
+    
+    
+    func aggregateCount() async throws -> Int {
+        let snapshot = try await self.count.getAggregation(source: .server)
+        return Int(truncating: snapshot.count)
     }
 }
