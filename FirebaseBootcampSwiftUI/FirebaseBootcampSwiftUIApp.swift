@@ -23,9 +23,7 @@ struct FirebaseBootcampSwiftUIApp: App {
     
     var body: some Scene {
         WindowGroup {
-            NavigationStack {
-                RootView()
-            }
+            RootView()
         }
     }
 }

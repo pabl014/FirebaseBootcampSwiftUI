@@ -24,6 +24,7 @@
 		FE3B21AA2BE94ED200D82E07 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE3B21A92BE94ED200D82E07 /* GoogleService-Info.plist */; };
 		FE3B21AD2BE9550500D82E07 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B21AC2BE9550500D82E07 /* Utilities.swift */; };
 		FE3B21AF2BE96B3B00D82E07 /* SignInGoogleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B21AE2BE96B3B00D82E07 /* SignInGoogleHelper.swift */; };
+		FED7026E2BF8EEFD005F0892 /* TabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7026D2BF8EEFD005F0892 /* TabbarView.swift */; };
 		FEF707B52BEBF450000DFFC4 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = FEF707B42BEBF450000DFFC4 /* FirebaseFirestore */; };
 		FEF707B72BEBF450000DFFC4 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FEF707B62BEBF450000DFFC4 /* FirebaseFirestoreSwift */; };
 		FEF707BB2BEBF69B000DFFC4 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF707BA2BEBF69B000DFFC4 /* SettingsViewModel.swift */; };
@@ -52,6 +53,7 @@
 		FE3B21A92BE94ED200D82E07 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FE3B21AC2BE9550500D82E07 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		FE3B21AE2BE96B3B00D82E07 /* SignInGoogleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInGoogleHelper.swift; sourceTree = "<group>"; };
+		FED7026D2BF8EEFD005F0892 /* TabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarView.swift; sourceTree = "<group>"; };
 		FEF707BA2BEBF69B000DFFC4 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		FEF707BD2BEBF6E8000DFFC4 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		FEF707C02BEBF778000DFFC4 /* SignInEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEmailViewModel.swift; sourceTree = "<group>"; };
@@ -148,10 +150,19 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		FED7026C2BF8EEE4005F0892 /* Tabbar */ = {
+			isa = PBXGroup;
+			children = (
+				FED7026D2BF8EEFD005F0892 /* TabbarView.swift */,
+			);
+			path = Tabbar;
+			sourceTree = "<group>";
+		};
 		FEF707B82BEBF5BF000DFFC4 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
 				FE3B219F2BE7BF9900D82E07 /* RootView.swift */,
+				FED7026C2BF8EEE4005F0892 /* Tabbar */,
 				FEF707C82BF11B2D000DFFC4 /* Products */,
 				FEF707BC2BEBF6C5000DFFC4 /* Authentication */,
 				FEF707C22BEBF808000DFFC4 /* Profile */,
@@ -307,6 +318,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FEF707CE2BF121C3000DFFC4 /* ProductsManager.swift in Sources */,
+				FED7026E2BF8EEFD005F0892 /* TabbarView.swift in Sources */,
 				FE3B21A22BE7C42800D82E07 /* SettingsView.swift in Sources */,
 				FEF707C42BEBF83E000DFFC4 /* ProfileView.swift in Sources */,
 				FEF707C72BEC0838000DFFC4 /* UserManager.swift in Sources */,

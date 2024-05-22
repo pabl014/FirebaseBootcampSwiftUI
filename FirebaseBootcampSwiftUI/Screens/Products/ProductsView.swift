@@ -137,6 +137,7 @@ struct ProductsView: View {
     
     
     var body: some View {
+        
         List {
 //            Button("FETCH MORE OBJECTS") {
 //                viewModel.getProductsByRating()
