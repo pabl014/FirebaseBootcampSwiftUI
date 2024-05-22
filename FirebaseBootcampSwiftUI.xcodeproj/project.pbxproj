@@ -24,6 +24,8 @@
 		FE3B21AA2BE94ED200D82E07 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE3B21A92BE94ED200D82E07 /* GoogleService-Info.plist */; };
 		FE3B21AD2BE9550500D82E07 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B21AC2BE9550500D82E07 /* Utilities.swift */; };
 		FE3B21AF2BE96B3B00D82E07 /* SignInGoogleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B21AE2BE96B3B00D82E07 /* SignInGoogleHelper.swift */; };
+		FE59A77C2BFE03BA00BCE170 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE59A77B2BFE03BA00BCE170 /* FavoritesView.swift */; };
+		FE59A77E2BFE409200BCE170 /* ProductCellViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE59A77D2BFE409200BCE170 /* ProductCellViewBuilder.swift */; };
 		FED7026E2BF8EEFD005F0892 /* TabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7026D2BF8EEFD005F0892 /* TabbarView.swift */; };
 		FEF707B52BEBF450000DFFC4 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = FEF707B42BEBF450000DFFC4 /* FirebaseFirestore */; };
 		FEF707B72BEBF450000DFFC4 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FEF707B62BEBF450000DFFC4 /* FirebaseFirestoreSwift */; };
@@ -53,6 +55,8 @@
 		FE3B21A92BE94ED200D82E07 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FE3B21AC2BE9550500D82E07 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		FE3B21AE2BE96B3B00D82E07 /* SignInGoogleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInGoogleHelper.swift; sourceTree = "<group>"; };
+		FE59A77B2BFE03BA00BCE170 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
+		FE59A77D2BFE409200BCE170 /* ProductCellViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCellViewBuilder.swift; sourceTree = "<group>"; };
 		FED7026D2BF8EEFD005F0892 /* TabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarView.swift; sourceTree = "<group>"; };
 		FEF707BA2BEBF69B000DFFC4 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		FEF707BD2BEBF6E8000DFFC4 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
@@ -150,6 +154,14 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		FE59A77A2BFE037700BCE170 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				FE59A77B2BFE03BA00BCE170 /* FavoritesView.swift */,
+			);
+			path = Favorites;
+			sourceTree = "<group>";
+		};
 		FED7026C2BF8EEE4005F0892 /* Tabbar */ = {
 			isa = PBXGroup;
 			children = (
@@ -162,9 +174,10 @@
 			isa = PBXGroup;
 			children = (
 				FE3B219F2BE7BF9900D82E07 /* RootView.swift */,
+				FEF707BC2BEBF6C5000DFFC4 /* Authentication */,
 				FED7026C2BF8EEE4005F0892 /* Tabbar */,
 				FEF707C82BF11B2D000DFFC4 /* Products */,
-				FEF707BC2BEBF6C5000DFFC4 /* Authentication */,
+				FE59A77A2BFE037700BCE170 /* Favorites */,
 				FEF707C22BEBF808000DFFC4 /* Profile */,
 				FEF707B92BEBF686000DFFC4 /* Settings */,
 			);
@@ -229,6 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				FEF707D02BF2827A000DFFC4 /* ProductCellView.swift */,
+				FE59A77D2BFE409200BCE170 /* ProductCellViewBuilder.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -317,11 +331,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE59A77C2BFE03BA00BCE170 /* FavoritesView.swift in Sources */,
 				FEF707CE2BF121C3000DFFC4 /* ProductsManager.swift in Sources */,
 				FED7026E2BF8EEFD005F0892 /* TabbarView.swift in Sources */,
 				FE3B21A22BE7C42800D82E07 /* SettingsView.swift in Sources */,
 				FEF707C42BEBF83E000DFFC4 /* ProfileView.swift in Sources */,
 				FEF707C72BEC0838000DFFC4 /* UserManager.swift in Sources */,
+				FE59A77E2BFE409200BCE170 /* ProductCellViewBuilder.swift in Sources */,
 				FE3B21832BE7AB1200D82E07 /* ContentView.swift in Sources */,
 				FE3B21812BE7AB1200D82E07 /* FirebaseBootcampSwiftUIApp.swift in Sources */,
 				FE3B21A02BE7BF9900D82E07 /* RootView.swift in Sources */,

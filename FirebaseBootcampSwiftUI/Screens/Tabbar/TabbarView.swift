@@ -23,7 +23,7 @@ struct TabbarView: View {
             
             
             NavigationStack {
-                Color.red
+                FavoritesView()
             }
             .tabItem {
                 Image(systemName: "star.fill")
