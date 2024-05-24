@@ -15,6 +15,13 @@ final class FavoritesViewModel: ObservableObject {
     
     @Published private(set) var userFavoriteProducts: [UserFavoriteProduct] = []
     
+    func addListenerForFavorites() {
+        guard let authDataResult = try? AuthenticationManager.shared.getAuthenticatedUser() else { return }
+        UserManager.shared.addListenerForAllUserFavoriteProducts(userId: authDataResult.uid) { [weak self] products in
+            self?.userFavoriteProducts = products
+        }
+    }
+    
     func getAllFavorites() {
         Task {
             let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser() // getting the authenticated user
@@ -49,6 +56,7 @@ final class FavoritesViewModel: ObservableObject {
 struct FavoritesView: View {
     
     @StateObject private var viewModel = FavoritesViewModel()
+    @State private var didAppear: Bool = false
     
     var body: some View {
         List {
@@ -69,7 +77,11 @@ struct FavoritesView: View {
         }
         .navigationTitle("Favorites")
         .onAppear {
-            viewModel.getAllFavorites()
+//            viewModel.getAllFavorites()
+            if !didAppear {
+                viewModel.addListenerForFavorites()
+                didAppear = true
+            }
         }
     }
 }
